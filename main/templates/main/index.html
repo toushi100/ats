@@ -1,10 +1,110 @@
 {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body style="background-color: #dddddd">
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        {%if summerized%}
+        <div class="mt-4 rounded-3" style="background-color: #eeeeee">
+          <div class="p-3">
+            <div class="row">
+              <div class="col-9">
+                <h2>Original Text</h2>
+              </div>
+              <div class="col-3">
+                <h4>Word Count : {{ori_count}}</h4>
+              </div>
+            </div>
+            <p>{{text}}</p>
+          </div>
+        </div>
+        <div class="mt-4 rounded-3" style="background-color: #eeeeee">
+          <div class="p-3">
+            <div class="row">
+              <div class="col-9">
+                <h2>Summerized Text</h2>
+              </div>
+              <div class="col-3">
+                <h4>Word Count : {{sum_count}}</h4>
+              </div>
+            </div>
 
-{%if summerized%} 
-{{ summerized }} 
-{% else %}
-<form method="post">
-    {% csrf_token %} {% bootstrap_form form %}
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-{% endif %}
+            <p>{{ summerized }}</p>
+          </div>
+        </div>
+
+        <div class="mt-4 rounded-3" style="background-color: #eeeeee">
+          <div class="p-3 mb-3">
+            <h2 class="mb-4">Stats</h2>
+            <div class="row mt-2">
+              <div class="col-3 text-center">
+                <h2 class="">{{percent}}%</h2>
+                <h4>percentage</h4>
+              </div>
+              <div class="col-3 text-center">
+                <h2>{{ori_count}}</h2>
+                <h4>Original text Count</h4>
+              </div>
+              <div class="col-3 text-center">
+                <h2>{{sum_count}}</h2>
+                <h4>Summerized text Count</h4>
+              </div>
+              <div class="col-3 text-center">
+                <h2>{{p}}%</h2>
+                <h4>Precision</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <div style="background-color: #eeeeee" class="rounded-3 p-3 mt-4">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3 pt-2 pl-2">
+              <label class="ml-2" for="">Text</label>
+              {{ form.text }}
+            </div>
+            <div class="mb-3 pl-2">
+              <label for="">Type</label>
+              {{ form.select }}
+            </div>
+            <div class="mb-3 pl-2" id="ratio">
+              <label for="">Ratio</label>
+              {{ form.ratio }}
+            </div>
+            <div class="mb-3 pl-2" id="count">
+              <label for="">Count</label>
+              {{ form.count }}
+            </div>
+            <div class="d-flex flex-row-reverse">
+              <button type="submit" style="background-color: #FF8C32" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+        <script>
+          window.onload = e();
+
+          function e() {
+            var select = document.getElementById("select");
+            var ratio = document.getElementById("ratio");
+            var count = document.getElementById("count");
+
+            if (select.value === "ratio") {
+              count.style.display = "none";
+              ratio.style.display = "block";
+            } else if (select.value == "count") {
+              ratio.style.display = "none";
+              count.style.display = "block";
+            } else {
+              count.style.display = "none";
+              ratio.style.display = "none";
+            }
+          }
+        </script>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
