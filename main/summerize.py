@@ -21,7 +21,6 @@ def word_count(text):
 def precision(text, summed):
     rouge = Rouge()
     f = rouge.get_scores(summed,text)
-    print(f)
     p = f[0]['rouge-2']['p']
     return p*100
 
