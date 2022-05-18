@@ -7,7 +7,7 @@ class Form(forms.Form):
 
      choice = [('normal','Normal'),('ratio','Ratio'),('count','Word Count')]
      text = forms.CharField(widget=forms.Textarea)
-     text.widget.attrs.update({'class':'form-control  px-3'})
+     text.widget.attrs.update({'class':'form-control  px-3','onChange':''})
      select = forms.CharField(label='Type', widget=forms.Select(choices=choice))
      select.widget.attrs.update({'id':'select',"onChange":'e()','class':'form-control  px-3'})
 

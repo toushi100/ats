@@ -79,12 +79,29 @@
               {{ form.count }}
             </div>
             <div class="d-flex flex-row-reverse">
-              <button type="submit" style="background-color: #FF8C32" class="btn btn-primary">Submit</button>
+              <button
+                type="submit"
+                style="background-color: #ff8c32"
+                class="btn btn-primary"
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
         <script>
           window.onload = e();
+
+          const textArea = document.getElementById("id_text");
+          textArea.addEventListener("input", () => {
+            var textLn = textArea.value;
+            document.getElementById("countText").innerHTML =
+              "Total words: " + getWordCount(textLn);
+          });
+
+          function getWordCount(str) {
+            return str.trim().split(/\s+/).length;
+          }
 
           function e() {
             var select = document.getElementById("select");
@@ -104,6 +121,14 @@
           }
         </script>
         {% endif %}
+      </div>
+      <div class="col-md-3">
+        <div class="mt-4 rounded-3" >
+          <div class="p-3">
+        <h3 id="countText"></h3>
+        </div>
+        </div>
+
       </div>
     </div>
   </body>
